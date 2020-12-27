@@ -23,7 +23,7 @@ data class Post(
         }
     }
 
-    protected constructor(`in`: Parcel) : this(
+    constructor(`in`: Parcel) : this(
         `in`.readLong(),
         `in`.readLong(),
         `in`.readString() ?: "",
