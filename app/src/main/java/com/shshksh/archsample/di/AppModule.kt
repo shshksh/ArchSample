@@ -6,10 +6,18 @@ import com.shshksh.archsample.App
 import com.shshksh.archsample.util.SingleLiveEvent
 import dagger.Module
 import dagger.Provides
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module(includes = [ViewModelModule::class])
+@Module(
+    includes = [
+        ViewModelModule::class,
+        RetrofitModule::class
+    ]
+)
 class AppModule {
 
     @Provides
@@ -25,6 +33,14 @@ class AppModule {
     @Provides
     @Named("errorEvent")
     fun provideErrorEvent(): SingleLiveEvent<Throwable> = SingleLiveEvent()
+
+    @Provides
+    @Singleton
+    fun provideRetrofit() = Retrofit.Builder()
+        .baseUrl("https://jsonplaceholder.typicode.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .build()
 
 }
 
