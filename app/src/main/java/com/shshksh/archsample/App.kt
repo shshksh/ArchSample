@@ -6,6 +6,7 @@ import dagger.android.DaggerApplication
 import timber.log.Timber
 
 class App : DaggerApplication() {
+    // Dagger base class.
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())

@@ -15,4 +15,5 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.get().lifecycleOwner = this
     }
+
 }

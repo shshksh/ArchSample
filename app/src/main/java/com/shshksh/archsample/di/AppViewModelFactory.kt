@@ -9,7 +9,9 @@ import javax.inject.Singleton
 @Singleton
 class AppViewModelFactory @Inject constructor(private val creators: Map<Class<out ViewModel>, Provider<ViewModel>>) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         var creator: Provider<out ViewModel>? = creators[modelClass]
         if (creator == null) {
             for ((key, value) in creators) {
@@ -27,4 +29,5 @@ class AppViewModelFactory @Inject constructor(private val creators: Map<Class<ou
             throw RuntimeException(e)
         }
     }
+
 }

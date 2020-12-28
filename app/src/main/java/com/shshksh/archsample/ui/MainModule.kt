@@ -10,6 +10,7 @@ import dagger.Provides
 
 @Module
 object MainModule {
+
     @Provides
     @ActivityScope
     fun provideBinding(activity: MainActivity?): ActivityMainBinding =
@@ -18,4 +19,5 @@ object MainModule {
     @Provides
     @ActivityScope
     fun provideContext(activity: MainActivity): Context = activity
+
 }
