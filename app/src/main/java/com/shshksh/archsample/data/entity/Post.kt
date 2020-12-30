@@ -4,10 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Post(
-    private val userId: Long,
-    private val id: Long,
-    private val title: String,
-    private val body: String,
+    val userId: Long,
+    val id: Long,
+    val title: String,
+    val body: String,
 ) : Parcelable {
 
     override fun describeContents(): Int {

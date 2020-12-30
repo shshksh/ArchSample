@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="PostViewModel" />
+            type="com.shshksh.archsample.ui.post.PostViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

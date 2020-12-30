@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.shshksh.archsample.databinding.FragmentPostBinding
 import com.shshksh.archsample.di.AppViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -16,10 +16,17 @@ class PostFragment : DaggerFragment() {
     @Inject
     lateinit var binding: FragmentPostBinding
 
-    @Inject
+//     TODO: 2020-12-31 should implement AppViewModelFactory provider
+//    @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
     lateinit var viewModel: PostViewModel
+
+    @Inject
+    lateinit var adapter: PostAdapter
+
+    @Inject
+    lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,4 +43,14 @@ class PostFragment : DaggerFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = layoutManager
+            viewModel = this@PostFragment.viewModel
+        }
+        viewModel.livePosts.observe(viewLifecycleOwner) { adapter.setItems(it) }
+    }
 }
