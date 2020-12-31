@@ -17,7 +17,7 @@ class PostViewModel @Inject constructor(
     application: Application,
     val postService: PostService,
     @Named("errorEvent") val errorEvent: SingleLiveEvent<Throwable>
-) : AndroidViewModel(application) {
+) : AndroidViewModel(application), PostItem.EventListener {
 
     init {
         Timber.d("PostViewModel created")
@@ -26,12 +26,13 @@ class PostViewModel @Inject constructor(
     val livePosts = MutableLiveData<List<PostItem>>()
     private val compositeDisposable = CompositeDisposable()
     val loading = MutableLiveData(true)
+    val postClickEvent = SingleLiveEvent<PostItem>()
 
     fun loadPosts() {
         compositeDisposable.add(
             postService.getPosts()
                 .flatMapObservable { Observable.fromIterable(it) }
-                .map { post -> PostItem(post) }
+                .map { post -> PostItem(post, this) }
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -45,4 +46,9 @@ class PostViewModel @Inject constructor(
         Timber.d("onCleared")
         compositeDisposable.dispose()
     }
+
+    override fun onPostClick(postItem: PostItem) {
+        postClickEvent.value = postItem
+    }
+
 }

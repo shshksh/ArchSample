@@ -3,6 +3,8 @@ package com.shshksh.archsample.ui.post
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shshksh.archsample.databinding.FragmentPostBinding
@@ -31,6 +33,12 @@ class PostModule {
                 )
             }
         }
+    }
+
+    @Provides
+    @FragmentScope
+    fun provideNavController(fragment: PostFragment): NavController {
+        return NavHostFragment.findNavController(fragment)
     }
 
 }

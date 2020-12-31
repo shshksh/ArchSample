@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="10dp"
+            android:onClick="@{v -> item.eventListener.onPostClick(item)}"
             app:cardCornerRadius="8dp"
             app:cardUseCompatPadding="true">
 
