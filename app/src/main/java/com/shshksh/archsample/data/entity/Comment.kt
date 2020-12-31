@@ -1,9 +1,9 @@
 package com.shshksh.archsample.data.entity
 
 data class Comment(
-    private val postId: Long,
-    private val id: Long,
-    private val name: String,
-    private val email: String,
-    private val body: String,
+    val postId: Long,
+    val id: Long,
+    val name: String,
+    val email: String,
+    val body: String,
 )
