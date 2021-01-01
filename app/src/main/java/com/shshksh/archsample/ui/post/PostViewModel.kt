@@ -15,8 +15,8 @@ import javax.inject.Named
 
 class PostViewModel @Inject constructor(
     application: Application,
-    val postService: PostService,
-    @Named("errorEvent") val errorEvent: SingleLiveEvent<Throwable>
+    private val postService: PostService,
+    @Named("errorEvent") private val errorEvent: SingleLiveEvent<Throwable>
 ) : AndroidViewModel(application), PostItem.EventListener {
 
     init {

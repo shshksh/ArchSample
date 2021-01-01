@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class PostDetailAdapter @Inject constructor() : RecyclerView.Adapter<ViewBindingHolder<*>>() {
 
-    val items: MutableList<PostDetailItem> = ArrayList()
+    private val items: MutableList<PostDetailItem> = ArrayList()
 
     override fun getItemViewType(position: Int): Int {
         return when (PostDetailItem.Type.values()[items[position].getType().ordinal]) {

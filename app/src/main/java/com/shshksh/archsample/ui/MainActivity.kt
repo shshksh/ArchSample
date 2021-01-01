@@ -6,6 +6,7 @@ import com.shshksh.archsample.databinding.ActivityMainBinding
 import com.shshksh.archsample.util.SingleLiveEvent
 import dagger.Lazy
 import dagger.android.support.DaggerAppCompatActivity
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -22,6 +23,7 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.get().lifecycleOwner = this
         errorEvent.observe(this, this::showErrorToast)
+        Timber.d("MainActivity onCreate")
     }
 
     private fun showErrorToast(throwable: Throwable) {

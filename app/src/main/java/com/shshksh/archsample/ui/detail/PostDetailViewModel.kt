@@ -18,9 +18,9 @@ import javax.inject.Named
 
 class PostDetailViewModel @Inject constructor(
     application: Application,
-    val userService: UserService,
-    val commentService: CommentService,
-    @Named("errorEvent") val errorEvent: SingleLiveEvent<Throwable>
+    private val userService: UserService,
+    private val commentService: CommentService,
+    @Named("errorEvent") private val errorEvent: SingleLiveEvent<Throwable>
 ) : AndroidViewModel(application), PostDetailUserItem.EventListener {
 
     init {

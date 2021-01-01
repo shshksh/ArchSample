@@ -24,8 +24,7 @@ class PostDetailFragment : DaggerFragment() {
     @Inject
     lateinit var layoutManager: LinearLayoutManager
 
-    // TODO: 2021-01-01 inject viewmodefactory
-//    @Inject
+    @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
     @Inject
@@ -37,7 +36,7 @@ class PostDetailFragment : DaggerFragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(PostDetailViewModel::class.java)
 
-        savedInstanceState?.let {
+        if (savedInstanceState == null) {
             val args =
                 PostDetailFragmentArgs.fromBundle(arguments ?: throw IllegalArgumentException())
             viewModel.load(args.post)
@@ -62,8 +61,8 @@ class PostDetailFragment : DaggerFragment() {
             adapter.setItems(it)
         }
         viewModel.userClickEvent.observe(viewLifecycleOwner) {
-            // TODO: 2021-01-01 navigate setting 
-//            navController.get().navigate(PostDetailFragmentDirections)
+            navController.get()
+                .navigate(PostDetailFragmentDirections.actionPostDetailFragmentToUserFragment(it))
         }
     }
 }

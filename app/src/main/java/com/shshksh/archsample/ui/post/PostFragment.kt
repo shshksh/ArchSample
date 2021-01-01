@@ -18,8 +18,7 @@ class PostFragment : DaggerFragment() {
     @Inject
     lateinit var binding: FragmentPostBinding
 
-    //     TODO: 2020-12-31 should implement AppViewModelFactory provider
-//    @Inject
+    @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
     lateinit var viewModel: PostViewModel
@@ -37,7 +36,7 @@ class PostFragment : DaggerFragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(PostViewModel::class.java)
-        savedInstanceState?.let {
+        if (savedInstanceState == null) {
             viewModel.loadPosts()
         }
     }

@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.databinding.DataBindingUtil
 import com.shshksh.archsample.R
 import com.shshksh.archsample.databinding.ActivityMainBinding
+import com.shshksh.archsample.di.ActivityContext
 import com.shshksh.archsample.di.ActivityScope
 import com.shshksh.archsample.di.FragmentScope
 import com.shshksh.archsample.ui.detail.PostDetailFragment
 import com.shshksh.archsample.ui.detail.PostDetailModule
 import com.shshksh.archsample.ui.post.PostFragment
 import com.shshksh.archsample.ui.post.PostModule
+import com.shshksh.archsample.ui.user.UserFragment
+import com.shshksh.archsample.ui.user.UserModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -24,7 +27,7 @@ abstract class MainModule {
             DataBindingUtil.setContentView(activity!!, R.layout.activity_main)
 
         @Provides
-        @ActivityScope
+        @ActivityContext
         fun provideContext(activity: MainActivity): Context = activity
     }
 
@@ -35,5 +38,9 @@ abstract class MainModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [PostDetailModule::class])
     abstract fun getPostDetailFragment(): PostDetailFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [UserModule::class])
+    abstract fun getUserFragment(): UserFragment
 
 }

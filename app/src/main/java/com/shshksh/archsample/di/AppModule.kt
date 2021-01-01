@@ -34,14 +34,6 @@ class AppModule {
     @Named("errorEvent")
     fun provideErrorEvent(): SingleLiveEvent<Throwable> = SingleLiveEvent()
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .build()
-
 }
 
 // includes: 모듈의 상속. 컴포넌트에서 AppModule을 참조하면 ViewModelModule에서 제공하는 의존성도 포함한다.
