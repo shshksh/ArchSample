@@ -6,6 +6,8 @@ import com.shshksh.archsample.R
 import com.shshksh.archsample.databinding.ActivityMainBinding
 import com.shshksh.archsample.di.ActivityScope
 import com.shshksh.archsample.di.FragmentScope
+import com.shshksh.archsample.ui.detail.PostDetailFragment
+import com.shshksh.archsample.ui.detail.PostDetailModule
 import com.shshksh.archsample.ui.post.PostFragment
 import com.shshksh.archsample.ui.post.PostModule
 import dagger.Module
@@ -29,5 +31,9 @@ abstract class MainModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [PostModule::class])
     abstract fun getPostFragment(): PostFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [PostDetailModule::class])
+    abstract fun getPostDetailFragment(): PostDetailFragment
 
 }

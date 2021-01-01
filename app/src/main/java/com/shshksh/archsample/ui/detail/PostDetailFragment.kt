@@ -1,4 +1,4 @@
-package com.shshksh.archsample.ui.post
+package com.shshksh.archsample.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,38 +7,40 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.shshksh.archsample.databinding.FragmentPostBinding
+import com.shshksh.archsample.databinding.FragmentPostDetailBinding
 import com.shshksh.archsample.di.AppViewModelFactory
 import dagger.Lazy
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class PostFragment : DaggerFragment() {
+class PostDetailFragment : DaggerFragment() {
 
     @Inject
-    lateinit var binding: FragmentPostBinding
-
-    //     TODO: 2020-12-31 should implement AppViewModelFactory provider
-//    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    lateinit var viewModel: PostViewModel
+    lateinit var binding: FragmentPostDetailBinding
 
     @Inject
-    lateinit var adapter: PostAdapter
+    lateinit var adapter: PostDetailAdapter
 
     @Inject
     lateinit var layoutManager: LinearLayoutManager
 
+    // TODO: 2021-01-01 inject viewmodefactory
+//    @Inject
+    lateinit var viewModelFactory: AppViewModelFactory
+
     @Inject
     lateinit var navController: Lazy<NavController>
 
+    lateinit var viewModel: PostDetailViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(PostViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PostDetailViewModel::class.java)
+
         savedInstanceState?.let {
-            viewModel.loadPosts()
+            val args =
+                PostDetailFragmentArgs.fromBundle(arguments ?: throw IllegalArgumentException())
+            viewModel.load(args.post)
         }
     }
 
@@ -50,21 +52,18 @@ class PostFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             recyclerView.adapter = adapter
             recyclerView.layoutManager = layoutManager
-            viewModel = this@PostFragment.viewModel
+            viewModel = this@PostDetailFragment.viewModel
         }
-
-        viewModel.livePosts.observe(viewLifecycleOwner) {
+        viewModel.liveItems.observe(viewLifecycleOwner) {
             adapter.setItems(it)
         }
-
-        viewModel.postClickEvent.observe(viewLifecycleOwner) { postItem ->
-            navController.get()
-                .navigate(PostFragmentDirections.actionPostFragmentToPostDetailFragment(postItem.post))
+        viewModel.userClickEvent.observe(viewLifecycleOwner) {
+            // TODO: 2021-01-01 navigate setting 
+//            navController.get().navigate(PostDetailFragmentDirections)
         }
     }
 }

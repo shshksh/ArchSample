@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shshksh.archsample.BR
 import com.shshksh.archsample.R
 import com.shshksh.archsample.util.ViewBindingHolder
+import javax.inject.Inject
 
-class PostDetailAdapter : RecyclerView.Adapter<ViewBindingHolder<*>>() {
+class PostDetailAdapter @Inject constructor() : RecyclerView.Adapter<ViewBindingHolder<*>>() {
 
     val items: MutableList<PostDetailItem> = ArrayList()
 
